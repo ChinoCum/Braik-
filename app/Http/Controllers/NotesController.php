@@ -60,14 +60,15 @@ class NotesController extends Controller
      */
     public function show()
     {
-         //$users = \Notas\User::all(); 
+
 
         $users = DB::table('users')
-        ->join('users', function ($join) {
-            $join->on('users.curso', '=', 'courses.grade')
-                 ->where('users.cod_curso', '=', 41);
-        })
-        ->get();
+            ->join('courses', 'courses.grade', '=', 'users.cod_curso')
+           // ->join('users', 'users.cod_curso', '=', 'users.cod_curso')
+            //->select('users.*', 'users.username', 'orders.password')
+            ->get();
+            $users = \Notas\User::all(); 
+
          return view('login.show',compact('users')); 
 
     }
