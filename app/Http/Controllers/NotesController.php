@@ -1,7 +1,7 @@
 <?php
 
 namespace Notas\Http\Controllers;
-
+use DB;
 use Illuminate\Http\Request;
 use Notas\Http\Requests;
 use Notas\Http\Controllers\Controller;
@@ -45,6 +45,8 @@ class NotesController extends Controller
             
         ]);
 
+
+
         return view('user.profile');
 
 
@@ -58,7 +60,14 @@ class NotesController extends Controller
      */
     public function show()
     {
-         $users = \Notas\User::all(); 
+         //$users = \Notas\User::all(); 
+
+        $users = DB::table('users')
+        ->join('users', function ($join) {
+            $join->on('users.curso', '=', 'courses.grade')
+                 ->where('users.cod_curso', '=', 41);
+        })
+        ->get();
          return view('login.show',compact('users')); 
 
     }
