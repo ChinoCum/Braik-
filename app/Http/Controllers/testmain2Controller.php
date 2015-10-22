@@ -2,6 +2,7 @@
 
 namespace Notas\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use Notas\Http\Requests;
 use Notas\Http\Controllers\Controller;
@@ -10,8 +11,12 @@ class testmain2Controller extends Controller
 {
     
     public function test1() {
-        $users = DB::table('users')->get();
-        return $users;
+        $users = DB::table('users')
+            ->join('courses', 'users.cod_curso', '=', 'courses.id')
+            ->select('users.firstname', 'courses.grade','courses.section')
+            ->where('users.cod_curso', '=', '41')
+            ->get();
+        return view('test.testmain2', compact('users'));
     } 
     
     /**
