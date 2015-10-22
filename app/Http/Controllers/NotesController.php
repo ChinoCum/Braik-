@@ -63,10 +63,10 @@ class NotesController extends Controller
 
 
         $users = DB::table('users')
-            ->join('courses', 'courses.grade', '=', 'users.cod_curso')
-           // ->join('users', 'users.cod_curso', '=', 'users.cod_curso')
-            //->select('users.*', 'users.username', 'orders.password')
+            ->join('courses', 'users.cod_curso', '=', 'courses.id')
+            ->select('users.*', 'courses.*')
             ->get();
+            return $users;
             $users = \Notas\User::all(); 
 
          return view('login.show',compact('users')); 
