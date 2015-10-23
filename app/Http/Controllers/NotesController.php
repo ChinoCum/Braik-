@@ -2,6 +2,7 @@
 
 namespace Notas\Http\Controllers;
 use DB;
+use Input;
 use Illuminate\Http\Request;
 use Notas\Http\Requests;
 use Notas\Http\Controllers\Controller;
@@ -44,9 +45,6 @@ class NotesController extends Controller
             'email' => $request['email'],
             
         ]);
-
-
-
         return view('user.profile');
 
 
@@ -62,14 +60,12 @@ class NotesController extends Controller
     {
 
 
-        $users = DB::table('users')
+      $users = DB::table('users')
             ->join('courses', 'users.cod_curso', '=', 'courses.id')
-            ->select('users.*', 'courses.*')
+            ->select('users.id','users.firstname','users.lastname','courses.grade','courses.section')
             ->get();
-            return $users;
-            $users = \Notas\User::all(); 
 
-         return view('login.show',compact('users')); 
+         return view('login.show',compact('users'));
 
     }
 
@@ -78,7 +74,20 @@ class NotesController extends Controller
          return view('user.profile');
 
     }
+ public function login(Request $request){
+        $users = DB::table('users')
+            ->where('username','=',Input::get('username'))
+            ->where('password','=',Input::get('password'))
+            ->get();
 
+        if (empty($users)) {
+            return 'PAPA ESTA VACIO';
+        }else{
+            //return view('user.profile');
+            $request -> session() -> put('user',Input::get('username'));
+            return $request -> session() -> get('user');
+        }        
+    }
     /**
      * Show the form for editing the specified resource.
      *

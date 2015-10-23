@@ -7,31 +7,26 @@
   Usuario creado exitosamente
 </div>
 @endif
-	@section('content')
-	<table class="table">
-		<thead>
-			<th>Nombres</th>
-			<th>Apellidos</th>
-			<th>Usario</th>
-			<th>Contraseña</th>
-			<th>Curso</th>
-			<th>Colegio</th>
-			<th>Email</th>
-		</thead>
-		@foreach($users as $user)
-			<tbody>
-				<td>{{$user->firstname}}</td>
-				<td>{{$user->lastname}}</td>
-				<td>{{$user->username}}</td>
-				<td>{{$user->password}}</td>
-				<td>{{$user->cod_curso}}</td>
-				<td>{{$user->id_school}}</td>
-				<td>{{$user->email}}</td>
-				<td>
-					{!!link_to_route('notes.edit', $title = 'Editar', $parameters = $user->id, $attributes = ['class'=>'btn btn-primary']);
-					!!}
-				</td>
-			</tbody>
-		@endforeach
-	</table>
-	@endsection
+ @section('content')
+ <table class="table">
+  <thead>
+   <th>Nombres</th>
+   <th>Apeliidos</th>
+   <th>Grado</th>
+   <th>Seccion</th>
+   <th>Acciones</th>
+  </thead>
+  @foreach($users as $user)
+   <tbody>
+    <td>{{$user->firstname}}</td>
+    <td>{{$user->lastname}}</td>
+    <td>{{$user->grade}}</td>
+    <td>{{$user->section}}</td>
+    <td>
+     {!!link_to_route('notes.edit', $title = 'Editar', $parameters = $user->id, $attributes = ['class'=>'btn btn-primary']);
+     !!}
+    </td>
+   </tbody>
+  @endforeach
+ </table>
+ @endsection

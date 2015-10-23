@@ -13,9 +13,12 @@
 Route::any('/login','NotesController@index');
 Route::any('/login/create','NotesController@create');
 Route::any('/login/show','NotesController@show');
+Route::any('/login/lol','NotesController@login');
 Route::any('/user/profile','NotesController@user');
 Route::resource('notes','NotesController');
-
+Route::get('user/{id}', function ($id) {
+    return 'User '.$id;
+});
 Route::any('test',function(){
 	return view("login/create");
 });
