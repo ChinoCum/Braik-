@@ -65,7 +65,12 @@ class NotesController extends Controller
 
       $users = DB::table('users')
             ->join('courses', 'users.cod_curso', '=', 'courses.id')
+<<<<<<< HEAD
             ->select('users.id','users.firstname','users.lastname','courses.grade','courses.section')
+=======
+            ->select('users.id','users.firstname', 'courses.grade','courses.section')
+            ->where('users.cod_curso', '=', '41')
+>>>>>>> origin/master
             ->get();
 
          return view('login.show',compact('users'));
