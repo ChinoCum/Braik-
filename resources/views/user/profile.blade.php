@@ -9,13 +9,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Wuppa2</title>
+    <title>Esqola</title>
 
         {!!Html::style('assets/css/bootstrap.min.css')!!}
         {!!Html::style('assets/css/metisMenu.min.css')!!}
         {!!Html::style('assets/css/sb-admin-2.min.css')!!}
         {!!Html::style('assets/css/font-awesome.min.css')!!}
         {!!Html::style('assets/css/simple-sidebar.css')!!}
+         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+<style>
+
+        .title {
+                font-size: 96px;
+                font-family: 'Lato';
+            }
+</style>     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,7 +43,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Wuppa2
+                        Esqola
                     </a>
                 </li>
                 <li>
@@ -68,9 +76,14 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Simple Sidebar</h1>
-                        <!--<h1>{{$lol = $request -> session() -> get('user')}}</h1>-->
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        <div class="title">
+                            Esqola</div>
+                            @yield('content')
+                        </div>
+                         @foreach($users as $user)
+                        <h1>Bienvenido {{$user->firstname}}  {{$user->lastname}}</h1>
+                          @endforeach
+                       <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
                     </div>
                 </div>
             </div>

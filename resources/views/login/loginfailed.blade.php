@@ -9,6 +9,7 @@
             <div class="account-wall">
                 <img class="profile-img" src="../assets/images/logo.jpg"
                     alt="">
+                     <h1 class="text-center login-title">El Usuario o Contraseña no es Correcta.</h1>
                         @if($errors->has())
                         @if($errors->has('username'))
                                 <h1 class="text-center login-title">{{$errors->first('username')}}</h1>

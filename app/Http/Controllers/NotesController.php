@@ -3,6 +3,9 @@
 namespace Notas\Http\Controllers;
 use DB;
 use Input;
+use View;
+use Validator;
+use Redirect;
 use Illuminate\Http\Request;
 use Notas\Http\Requests;
 use Notas\Http\Controllers\Controller;
@@ -75,17 +78,38 @@ class NotesController extends Controller
 
     }
  public function login(Request $request){
+        $rules = array(
+        'username'   => 'required|max:200|',
+        'password' => 'required|max:160|',
+        );
+        $messages = array(
+        'required' => 'Este campo es requerido',
+        'max'      => 'Este campo debe tener un máximo de :max caracteres',
+        'different'     =>  'No esta este nombre de usuario',
+        );
+         
+         
+
         $users = DB::table('users')
             ->where('username','=',Input::get('username'))
             ->where('password','=',Input::get('password'))
             ->get();
 
-        if (empty($users)) {
-            return 'PAPA ESTA VACIO';
-        }else{
-            //return view('user.profile');
+            $validation = Validator::make(Input::all(),$rules, $messages);
+            if ($validation->fails()) {
+                return Redirect::back()->withInput()->withErrors($validation);
+            } 
+            //if($request['username'] != 'username' || $request['password'] != 'password'){
+            //    return Redirect::to('loginfailed');
+            //}
+            else{
             $request -> session() -> put('user',Input::get('username'));
-            return $request -> session() -> get('user');
+            //return view('user.profile',compact('users'));
+            return View::make('user.profile',compact('users'));
+            //return $request -> session() -> get('user');
+            //$view = View::make('profile')->with('name', 'Steve');
+            // return Redirect::to('user/profile')->with($request -> session() -> get('user'));
+
         }        
     }
     /**
