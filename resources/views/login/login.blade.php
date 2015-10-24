@@ -9,6 +9,7 @@
             <div class="account-wall">
                 <img class="profile-img" src="../assets/images/logo.jpg"
                     alt="">
+                        @include('alerts.errors')
                         @if($errors->has())
                         @if($errors->has('username'))
                                 <h1 class="text-center login-title">{{$errors->first('username')}}</h1>

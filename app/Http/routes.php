@@ -25,7 +25,6 @@ Route::any('loginfailed',function(){
 	return view("login/loginfailed");
 });
 
-
 Route::any('/', function () {
     return view('welcome');
 });

@@ -4,10 +4,13 @@ namespace Notas\Http\Controllers;
 use DB;
 use Input;
 use View;
+use Auth;
+use Session;
 use Validator;
 use Redirect;
 use Illuminate\Http\Request;
 use Notas\Http\Requests;
+use Notas\Http\Requests\LoginRequest;
 use Notas\Http\Controllers\Controller;
 
 class NotesController extends Controller
@@ -38,7 +41,7 @@ class NotesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LoginRequest $request)
     {
         \Notas\User::create([
             'username' => $request['username'],
@@ -49,8 +52,6 @@ class NotesController extends Controller
             
         ]);
         return view('user.profile');
-
-
     }
 
     /**
@@ -65,12 +66,8 @@ class NotesController extends Controller
 
       $users = DB::table('users')
             ->join('courses', 'users.cod_curso', '=', 'courses.id')
-<<<<<<< HEAD
             ->select('users.id','users.firstname','users.lastname','courses.grade','courses.section')
-=======
             ->select('users.id','users.firstname', 'courses.grade','courses.section')
-            ->where('users.cod_curso', '=', '41')
->>>>>>> origin/master
             ->get();
 
          return view('login.show',compact('users'));
@@ -82,7 +79,8 @@ class NotesController extends Controller
          return view('user.profile');
 
     }
- public function login(Request $request){
+ public function login(LoginRequest $request){
+
         $rules = array(
         'username'   => 'required|max:200|',
         'password' => 'required|max:160|',
@@ -92,30 +90,34 @@ class NotesController extends Controller
         'max'      => 'Este campo debe tener un máximo de :max caracteres',
         'different'     =>  'No esta este nombre de usuario',
         );
-         
-         
-
+       
         $users = DB::table('users')
             ->where('username','=',Input::get('username'))
             ->where('password','=',Input::get('password'))
             ->get();
-
             $validation = Validator::make(Input::all(),$rules, $messages);
+           
+/*/Start Auth
+            if (Auth::attempt(['username' => $request['username'], 'password' => $request['password']]))
+            {
+            return View::make('user.profile',compact('users'));
+            }else{
+            Session::flash('message-error', 'Datos son Incorrectos');
+            return Redirect::to('/login');
+            }
+*///End Auth 
+       
             if ($validation->fails()) {
-                return Redirect::back()->withInput()->withErrors($validation);
-            } 
-            //if($request['username'] != 'username' || $request['password'] != 'password'){
-            //    return Redirect::to('loginfailed');
-            //}
+               return Redirect::back()->withInput()->withErrors($validation);
+           } 
+           if (empty($users)) {
+                Session::flash('message-error', 'Datos son Incorrectos');
+                return Redirect::to('/login');
+            }
             else{
             $request -> session() -> put('user',Input::get('username'));
-            //return view('user.profile',compact('users'));
             return View::make('user.profile',compact('users'));
-            //return $request -> session() -> get('user');
-            //$view = View::make('profile')->with('name', 'Steve');
-            // return Redirect::to('user/profile')->with($request -> session() -> get('user'));
-
-        }        
+           }        
     }
     /**
      * Show the form for editing the specified resource.
