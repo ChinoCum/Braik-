@@ -10,6 +10,7 @@ use View;
 use Auth;
 use Session;
 use Validator;
+use Notas\User;
 use Redirect;
 use Notas\Http\Requests\LoginRequest;
 use Notas\Http\Controllers\Controller;
@@ -23,10 +24,17 @@ class LogController extends Controller
      */
     public function index()
     {
-        if (Auth::check())
-        {
-            return Redirect::to('/profile');
-        }else{
+          if (Auth::check())
+            {
+            $id = Auth::user()->id;
+            $user = User::find($id);
+             if ($user->is('admin'))
+            {
+            return Redirect::to('/thprofile');
+            }else{
+            return Redirect::to('/profile');   
+            } 
+            }else{
          return view('login.login');
         }
         
@@ -53,7 +61,14 @@ class LogController extends Controller
 
         if (Auth::attempt(['username' => $request['username'], 'password' => $request['password']]))
             {
-            return Redirect::to('/profile');
+            $id = Auth::user()->id;
+            $user = User::find($id);
+             if ($user->is('admin'))
+            {
+            return Redirect::to('/thprofile');
+            }else{
+            return Redirect::to('/profile');   
+            }
             }else{
             Session::flash('message-error', 'Datos son Incorrectos');
             return Redirect::to('/login');

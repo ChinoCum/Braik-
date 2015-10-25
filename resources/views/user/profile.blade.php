@@ -42,7 +42,7 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
+                    <a href="{!!URL::to('/profile')!!}">
                         Esqola
                     </a>
                 </li>

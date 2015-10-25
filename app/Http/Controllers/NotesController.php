@@ -51,7 +51,7 @@ class NotesController extends Controller
     public function store(Request $request)
     {
         
-       User::create([
+        $user = User::create([
             'username' => $request['username'],
             'password' => bcrypt($request['password']),
             'firstname' => $request['first'],
@@ -61,8 +61,7 @@ class NotesController extends Controller
             'id_school' =>  $request['schools'],
             'pass' =>  $request['password'],
         ]);
-        $user =  User::find(14);
-        $user->roles()->attach(1);
+        $user->roles()->attach(2);
         Session::flash('message-success', 'Se ha creado un nuevo usuario');
         return Redirect::to('/login/create');
         
@@ -77,15 +76,23 @@ class NotesController extends Controller
     public function show()
     {
 
-
-      $users = DB::table('users')
+         if (Auth::check())
+            {
+            $id = Auth::user()->id;
+            $user = User::find($id);
+             if ($user->is('admin'))
+            {
+            $users = DB::table('users')
             ->join('courses', 'users.cod_curso', '=', 'courses.id')
             ->select('users.id','users.firstname','users.lastname','courses.grade','courses.section')
             ->select('users.id','users.firstname', 'courses.grade','courses.section')
             ->get();
-
-         return view('login.show',compact('users'));
-
+            return view('login.show',compact('users'));
+            }else{
+            return Redirect::to('/profile');   
+            }
+      
+        }
     }
 
     public function user()

@@ -1,4 +1,4 @@
-@extends('layouts.menu')
+@extends('layouts.thmenu')
  @section('content')
  <table class="table">
   <thead>

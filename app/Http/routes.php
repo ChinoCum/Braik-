@@ -12,17 +12,18 @@
 */
 Route::any('/login','LogController@index');
 Route::any('/login/create','NotesController@create');
-Route::any('/login/show','NotesController@show');
+Route::any('/thprofile/show','NotesController@show');
 Route::resource('notes','NotesController');
 Route::resource('log','LogController');
 Route::get('logout','LogController@logout');
-Route::get('user/{id}', function ($id) {
-    return 'User '.$id;
-});
 
 
 Route::any('profile',function(){
 	return view("user/profile");
+});
+
+Route::any('thprofile',function(){
+	return view("teachers/thprofile");
 });
 
 Route::any('/', function () {

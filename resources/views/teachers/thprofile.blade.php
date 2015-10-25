@@ -42,7 +42,7 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="{!!URL::to('/profile')!!}">
+                    <a href="{!!URL::to('/thprofile')!!}">
                         Esqola
                     </a>
                 </li>
@@ -57,6 +57,9 @@
                 </li>
                 <li>
                     <a href="#">Notas</a>
+                </li>
+                <li>
+                    <a href="{!!URL::to('/thprofile/show')!!}">Alumnos</a>
                 </li>
                 <li>
                     <a href="#">Foros</a>
@@ -80,6 +83,7 @@
                             Esqola</div>
                             @yield('content')
                         </div>
+                        <h1>Bienvenido Maestro {!!Auth::user()->firstname!!}</h1>
                        <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
                     </div>
                 </div>
