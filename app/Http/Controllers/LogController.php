@@ -23,7 +23,15 @@ class LogController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::check())
+        {
+            return Redirect::to('/profile');
+        }else{
+         
+         return view('login.login');
+
+        }
+        
     }
 
     /**
@@ -44,18 +52,18 @@ class LogController extends Controller
      */
      public function store(LoginRequest $request)
     {
-        $users = DB::table('users')
-            ->where('username','=',Input::get('username'))
-            ->where('password','=',Input::get('password'))
-            ->get();
-           
-        if (Auth::attempt($users))
+
+        if (Auth::attempt(['username' => $request['username'], 'password' => $request['password']]))
             {
-            return View::make('user.profile',compact('users'));
+            return Redirect::to('/profile');
             }else{
             Session::flash('message-error', 'Datos son Incorrectos');
             return Redirect::to('/login');
             }
+    }
+     public function logout(){
+        Auth::logout();
+        return Redirect::to('/login');
     }
 
 

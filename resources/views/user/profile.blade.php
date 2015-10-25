@@ -65,7 +65,7 @@
                     <a href="#">Conducta</a>
                 </li>
                 <li>
-                    <a href="#">Maestros</a>
+                    <a href="{!!URL::to('/logout')!!}">LogOut</a>
                 </li>
             </ul>
         </div>
@@ -80,17 +80,13 @@
                             Esqola</div>
                             @yield('content')
                         </div>
-                         @foreach($users as $user)
-                        <h1>Bienvenido {{$user->firstname}}  {{$user->lastname}}</h1>
-                          @endforeach
+                        <h1>Bienvenido {!!Auth::user()->firstname!!}</h1>
                        <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
                     </div>
                 </div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
-
-    </div>
     <!-- /#wrapper -->
 
 {!!Html::script('assets/js/jquery.min.js')!!}

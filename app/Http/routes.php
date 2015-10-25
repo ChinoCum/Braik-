@@ -10,19 +10,19 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::any('/login','NotesController@index');
+Route::any('/login','LogController@index');
 Route::any('/login/create','NotesController@create');
 Route::any('/login/show','NotesController@show');
-Route::any('/profile','NotesController@login');
 Route::resource('notes','NotesController');
+Route::resource('log','LogController');
+Route::get('logout','LogController@logout');
 Route::get('user/{id}', function ($id) {
     return 'User '.$id;
 });
-Route::any('test',function(){
-	return view("login/create");
-});
-Route::any('loginfailed',function(){
-	return view("login/loginfailed");
+
+
+Route::any('profile',function(){
+	return view("user/profile");
 });
 
 Route::any('/', function () {

@@ -1,7 +1,17 @@
 @extends('layouts.login')
 
 @section('content')
-{!!Form::open(['action' => 'NotesController@login', 'class'=>'form-signin'])!!}
+{!!Form::open(['route' => 'log.store', 'method' => 'POST','class'=>'form-signin'])!!}
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+
+
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">

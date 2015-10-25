@@ -22,7 +22,13 @@ class NotesController extends Controller
      */
     public function index()
     {
-        return view('login.login');
+        if (Auth::check())
+        {
+    
+        }else{
+            return view('login.login');
+        }
+        
     }
 
     /**
@@ -41,17 +47,23 @@ class NotesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LoginRequest $request)
+    public function store(Request $request)
     {
+        
         \Notas\User::create([
             'username' => $request['username'],
             'password' => bcrypt($request['password']),
             'firstname' => $request['first'],
-            'last' => $request['last'],
+            'lastname' => $request['last'],
             'email' => $request['email'],
+            'cod_curso' =>  $request['grade'],
+            'id_school' =>  $request['schools'],
+            'pass' =>  $request['password'],
             
         ]);
-        return view('user.profile');
+        Session::flash('message-success', 'Se ha creado un nuevo usuario');
+        return Redirect::to('/login/create');
+        
     }
 
     /**
