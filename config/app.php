@@ -137,6 +137,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
+
         /*
          * Application Service Providers...
          */
@@ -145,7 +147,7 @@ return [
         Notas\Providers\EventServiceProvider::class,
         Notas\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-
+        Bican\Roles\RolesServiceProvider::class,
     ],
 
     /*

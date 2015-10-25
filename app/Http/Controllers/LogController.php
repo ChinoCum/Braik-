@@ -27,9 +27,7 @@ class LogController extends Controller
         {
             return Redirect::to('/profile');
         }else{
-         
          return view('login.login');
-
         }
         
     }

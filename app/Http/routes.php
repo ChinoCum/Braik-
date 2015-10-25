@@ -26,13 +26,12 @@ Route::any('profile',function(){
 });
 
 Route::any('/', function () {
-    return view('welcome');
+        $user =  User::find(14);
+        $user->roles()->attach(1);
+        return 'lol';
 });
 
-Route::group(['before' => 'auth'], function()
-{
-    Route::get('/', 'HomeController@showWelcome'); // Vista de inicio
-});
 Route::get('dashboard', function () {
     return redirect('/user/profile');
 });
+

@@ -8,6 +8,7 @@ use Auth;
 use Session;
 use Validator;
 use Redirect;
+use Notas\User;
 use Illuminate\Http\Request;
 use Notas\Http\Requests;
 use Notas\Http\Requests\LoginRequest;
@@ -50,7 +51,7 @@ class NotesController extends Controller
     public function store(Request $request)
     {
         
-        \Notas\User::create([
+       User::create([
             'username' => $request['username'],
             'password' => bcrypt($request['password']),
             'firstname' => $request['first'],
@@ -59,8 +60,9 @@ class NotesController extends Controller
             'cod_curso' =>  $request['grade'],
             'id_school' =>  $request['schools'],
             'pass' =>  $request['password'],
-            
         ]);
+        $user =  User::find(14);
+        $user->roles()->attach(1);
         Session::flash('message-success', 'Se ha creado un nuevo usuario');
         return Redirect::to('/login/create');
         
