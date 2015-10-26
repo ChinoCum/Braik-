@@ -146,6 +146,20 @@ class NotesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function thprofile(){
+        if (Auth::check())
+            {
+            $id = Auth::user()->id;
+            $user = User::find($id);
+            if ($user->is('admin'))
+            {
+            return view("teachers/thprofile");
+            }else{
+            return Redirect::to('/profile');   
+            }
+        }
+    }
     public function edit($id)
     {
         $user = User::find($id);

@@ -1,25 +1,26 @@
-@extends('layouts.login')
-
-@section('content')
+<link href='https://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
+<meta charset='utf-8'>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="script.js"></script>
+{!!Html::style('assets/css/login.css')!!}
 {!!Form::open(['route' => 'log.store', 'method' => 'POST','class'=>'form-signin'])!!}
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-<script type="text/javascript">
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-</script>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title">WOW SUCH BETTER MUCH WOW</h1>
-            <div class="account-wall">
-                <img class="profile-img" src="../assets/images/logo.jpg"
-                    alt="">
-                        @include('alerts.errors')
+<!--NAV BAR-->
+<div id='cssmenu'>
+<ul>
+   <li class='active'><a href='#'><span>Login</span></a></li>
+   <li><a href='#'><span>Quienes Somos</span></a></li>
+   <li><a href='#'><span>Equipo</span></a></li>
+   <li><a href='#'><span>Contacto</span></a></li>
+</ul>
+</div>
+<!--NAV BAR-->
+<!--LOGIN FORM-->
+<div class="login-block">
+    <div class="logo"><img src="/assets/images/logo2.png"></div>
+    <br>
+        @include('alerts.errors')
                         @include('alerts.request')
                         @if($errors->has())
                         @if($errors->has('username'))
@@ -29,17 +30,9 @@
                                 <h1 class="text-center login-title">{{$errors->first('password')}}</h1>
                             @endif
                         @endif
-                    {!!Form::text('username',null,['class'=>'form-control','placeholder'=>'Usuario'])!!}
-                    {!!Form::password('password',['class'=>'form-control','placeholder'=>'Contraseña'])!!}
-                <br>
-                <br>
-                {!!Form::submit('Login',['class'=>'btn btn-lg btn-primary btn-block'])!!}   
-            </div>
-
-        </div>
-    </div>
+                    {!!Form::text('username',null,['id'=>'username','placeholder'=>'Usuario'])!!}
+                    {!!Form::password('password',['id'=>'password','placeholder'=>'Contraseña'])!!}
+                    {!!Form::submit('Iniciar Sesion',['class'=>'button'])!!} 
 </div>
-
+<!--LOGIN FORM-->
 {!!Form::close()!!}
-
-@stop

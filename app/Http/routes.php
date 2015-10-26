@@ -21,15 +21,10 @@ Route::get('logout','LogController@logout');
 Route::any('profile',function(){
 	return view("user/profile");
 });
-
-Route::any('thprofile',function(){
-	return view("teachers/thprofile");
-});
+Route::any('thprofile','NotesController@thprofile');
 
 Route::any('/', function () {
-        $user =  User::find(14);
-        $user->roles()->attach(1);
-        return 'lol';
+        return view("index");
 });
 
 Route::get('dashboard', function () {
