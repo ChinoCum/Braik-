@@ -72,16 +72,16 @@ class NotasController extends Controller
             $user = User::find($id);
              if ($user->is('admin'))
                 {   
-                $users = DB::table('users')
-                ->join('grades', 'users.id', '=', 'grades.user_id')
-                ->select($user,'users.firstname','users.lastname','grades.notas_especificas','grades.unit','grades.cod_class')
-                ->select($user,'users.firstname', 'grades.notas_especificas','grades.unidad','grades.cod_class')
-                ->get();
-                return view('teachers.thshownotas',compact('users'));
+                return view('teachers.thshownotas');
                 }
                 else
                 {
-                     return Redirect::to('/profile');   
+                    $users = DB::table('users')
+                    ->join('grades', 'users.id', '=', 'grades.user_id')
+                    ->select('users.firstname', 'grades.unit','grades.notas_especificas','grades.cod_class')
+                    ->where('users.id', '=', $id)
+                    ->get();
+                return view('user.shownotas',compact('users'));
                 }
             }
     }

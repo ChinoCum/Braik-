@@ -17,13 +17,11 @@ Route::resource('notes','NotesController');
 Route::resource('log','LogController');
 Route::get('logout','LogController@logout');
 Route::any('/thprofile/thnotas','notasController@show');
-
+Route::any('/profile/notas','notasController@show');
 Route::any('profile',function(){
 	return view("user/profile");
 });
-Route::any('profile/notas',function(){
-	return view("user/notas");
-});
+
 Route::any('thprofile','NotesController@thprofile');
 
 Route::any('/','LogController@index');

@@ -80,6 +80,7 @@
                             Esqola</div>
                         </div>
                         <h1>Bienvenido {!!Auth::user()->lastname!!}</h1>
+                        @yield('content')
                        <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
                     </div>
                 </div>
