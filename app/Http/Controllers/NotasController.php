@@ -1,21 +1,19 @@
 <?php
 
 namespace Notas\Http\Controllers;
-
-use Illuminate\Http\Request;
-use Notas\Http\Requests;
 use DB;
 use Input;
 use View;
 use Auth;
 use Session;
 use Validator;
-use Notas\User;
 use Redirect;
-use Notas\Http\Requests\LoginRequest;
+use Notas\User;
+use Illuminate\Http\Request;
+use Notas\Http\Requests;
 use Notas\Http\Controllers\Controller;
 
-class LogController extends Controller
+class NotasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,15 +22,15 @@ class LogController extends Controller
      */
     public function index()
     {
-          if (Auth::check())
+        if (Auth::check())
             {
             $id = Auth::user()->id;
             $user = User::find($id);
              if ($user->is('admin'))
             {
-            return Redirect::to('/thprofile');
+            return view("teachers/thnotas");
             }else{
-            return Redirect::to('/profile');   
+            return Redirect::to('/user/notas');   
             } 
             }else{
          return view('login.login');
@@ -55,29 +53,10 @@ class LogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(LoginRequest $request)
+    public function store(Request $request)
     {
-
-        if (Auth::attempt(['username' => $request['username'], 'password' => $request['password']]))
-            {
-            $id = Auth::user()->id;
-            $user = User::find($id);
-             if ($user->is('admin'))
-            {
-            return Redirect::to('/thprofile');
-            }else{
-            return Redirect::to('/profile');   
-            }
-            }else{
-            Session::flash('message-error', 'Datos son Incorrectos');
-            return Redirect::to('/login');
-            }
+        //
     }
-     public function logout(){
-        Auth::logout();
-        return Redirect::to('/login');
-    }
-
 
     /**
      * Display the specified resource.
@@ -85,9 +64,26 @@ class LogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+       if (Auth::check())
+            {
+            $id = Auth::user()->id;
+            $user = User::find($id);
+             if ($user->is('admin'))
+                {   
+                $users = DB::table('users')
+                ->join('grades', 'users.id', '=', 'grades.user_id')
+                ->select($user,'users.firstname','users.lastname','grades.notas_especificas','grades.unit','grades.cod_class')
+                ->select($user,'users.firstname', 'grades.notas_especificas','grades.unidad','grades.cod_class')
+                ->get();
+                return view('teachers.thshownotas',compact('users'));
+                }
+                else
+                {
+                     return Redirect::to('/profile');   
+                }
+            }
     }
 
     /**

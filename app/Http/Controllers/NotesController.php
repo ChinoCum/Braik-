@@ -81,18 +81,19 @@ class NotesController extends Controller
             $id = Auth::user()->id;
             $user = User::find($id);
              if ($user->is('admin'))
-            {
-            $users = DB::table('users')
-            ->join('courses', 'users.cod_curso', '=', 'courses.id')
-            ->select('users.id','users.firstname','users.lastname','courses.grade','courses.section')
-            ->select('users.id','users.firstname', 'courses.grade','courses.section')
-            ->get();
-            return view('login.show',compact('users'));
-            }else{
-            return Redirect::to('/profile');   
+                {
+                $users = DB::table('users')
+                ->join('courses', 'users.cod_curso', '=', 'courses.id')
+                ->select('users.id','users.firstname','users.lastname','courses.grade','courses.section')
+                ->select('users.id','users.firstname', 'courses.grade','courses.section')
+                ->get();
+                return view('login.show',compact('users'));
+                }
+                else
+                {
+                     return Redirect::to('/profile');   
+                }
             }
-      
-        }
     }
 
     public function user()

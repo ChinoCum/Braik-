@@ -16,16 +16,17 @@ Route::any('/thprofile/show','NotesController@show');
 Route::resource('notes','NotesController');
 Route::resource('log','LogController');
 Route::get('logout','LogController@logout');
-
+Route::any('/thprofile/thnotas','notasController@show');
 
 Route::any('profile',function(){
 	return view("user/profile");
 });
+Route::any('profile/notas',function(){
+	return view("user/notas");
+});
 Route::any('thprofile','NotesController@thprofile');
 
-Route::any('/', function () {
-        return view("index");
-});
+Route::any('/','LogController@index');
 
 Route::get('dashboard', function () {
     return redirect('/user/profile');

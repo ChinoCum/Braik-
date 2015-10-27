@@ -56,7 +56,7 @@
                     <a href="#">Contenidos</a>
                 </li>
                 <li>
-                    <a href="#">Notas</a>
+                    <a href="{!!URL::to('/thprofile/thnotas')!!}">Notas</a>
                 </li>
                 <li>
                     <a href="{!!URL::to('/thprofile/show')!!}">Alumnos</a>

@@ -56,7 +56,7 @@
                     <a href="#">Contenidos</a>
                 </li>
                 <li>
-                    <a href="#">Notas</a>
+                    <a href="{!!URL::to('/profile/notas')!!}">Notas</a>
                 </li>
                 <li>
                     <a href="#">Foros</a>
@@ -78,7 +78,6 @@
                     <div class="col-lg-12">
                         <div class="title">
                             Esqola</div>
-                            @yield('content')
                         </div>
                         <h1>Bienvenido {!!Auth::user()->firstname!!}</h1>
                        <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->

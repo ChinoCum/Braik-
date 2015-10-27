@@ -42,7 +42,7 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="{!!URL::to('/profile')!!}">
+                    <a href="{!!URL::to('/thprofile')!!}">
                         Esqola
                     </a>
                 </li>
@@ -56,7 +56,10 @@
                     <a href="#">Contenidos</a>
                 </li>
                 <li>
-                    <a href="#">Notas</a>
+                    <a href="{!!URL::to('/thprofile/thnotas')!!}">Notas</a>
+                </li>
+                <li>
+                    <a href="{!!URL::to('/thprofile/show')!!}">Alumnos</a>
                 </li>
                 <li>
                     <a href="#">Foros</a>
